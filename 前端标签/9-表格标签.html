@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表格标签</title>
+</head>
+<body>
+    <!--
+        table: 定义表格
+         tr  表格的行
+         td  表格的列
+         th  表头，字体加粗，居中
+         默认情况表格没有设置边框，需要设置
+        border：边框宽度
+        cellspacing:边框距离
+        cellpadding:边框和内容的距离
+    -->
+    <!--设置表格的边框宽度、边框距离，边框内容之间距离-->
+    <table border="1" cellspacing="0" cellpadding="10">     
+        <tr>
+            <!--th代表表头信息，-->
+            <th width="60">学号</th>
+            <th width="60">姓名</th>
+            <th width="20">年龄</th>
+        </tr>
+        <tr>    <!--1.第一行信息-->
+            <!--td代表列，就是在每行上添加每列的信息，一个tr就代表一行-->
+            <td>id001</td>
+            <td>def</td>
+            <td>30</td>
+        </tr>
+        <tr>    <!--2.第二行信息-->
+            <td>id002</td>
+            <td>dehf</td>
+            <td>27</td>
+        </tr>
+        <tr>    <!--3.第三行信息-->
+            <td>id003</td>
+            <td>张三</td>
+            <td>20</td>
+        </tr>
+    </table>
+</body>
+</html>
