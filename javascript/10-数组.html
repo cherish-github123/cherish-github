@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数组</title>
+</head>
+
+<body>
+  <script>
+    // 定义数组
+    // 第一种：构造函数
+    var arr1 = new Array(1, 2, 3)
+    // 第二种：字面量方式（常用）
+    var arr2 = [1, 2, 3]
+
+    // 访问数组元素 数组[索引]
+    console.log(arr1[0])
+    console.log(arr1[1])
+
+    // 访问数组长度
+    console.log(arr1.length)
+
+    // 删除数组中的元素  delete 数组[索引]
+    delete arr2[2]
+    console.log(arr2)
+
+    // 修改
+    arr1[2] = 300
+    console.log(arr1)
+
+    // 新增 数组[索引] = 新的值
+    arr1[3] = 400
+    console.log(arr1)
+
+
+    console.log('==========数组遍历============')
+    arr_names = ['蔡玉琴', '张江洪', '罗雪', '黄逸凯']
+    // for 使用下标
+    for (var i = 0; i < arr_names.length; i++) {
+      console.log(arr_names[i])
+    }
+    console.log('-------------------')
+    // for in
+    for (var i in arr_names) {
+      console.log(arr_names[i])
+    }
+  </script>
+</body>
+
+</html>

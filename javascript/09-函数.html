@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>函数</title>
+</head>
+
+<body>
+  <script>
+    // 定义函数  参数：形参
+    // js中的函数不能同时返回多个值
+    function fn (num1, num2, num3 = 3) {
+      var result = num1 + num2 + num3
+      return result
+    }
+
+    // 调用  实参： 实参
+    console.log(fn(1, 2))
+
+
+    // 匿名函数
+    var fn2 = function () {
+      return 100
+    }
+
+    // 调用匿名函数
+    console.log(fn2())
+
+    // 匿名函数自调用
+    !function () {
+      console.log('自己调用了自己')
+    }()
+
+      - function () {
+        console.log('自己调用了自己')
+      }()
+
+      * function () {
+        console.log('自己调用了自己')
+      }()
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>分支语句</title>
+</head>
+
+<body>
+  <script>
+    // 单分支
+    /*
+    if(条件表达式){
+      条件成立执行的代码块
+    }
+    */
+    if (100 > 10) {
+      console.log('条件成立')
+    }
+
+    // 双分支
+    /*
+    if(条件表达式){
+      条件成立的需要执行的语句
+    }else{
+      不成立的需要执行的语句
+    }
+    */
+    if (10 > 100) {
+      console.log('成立')
+    } else {
+      console.log('不成立')
+    }
+
+    // 多分支
+    /*
+    if(条件1){
+      条件1成立执行的代码
+    }else if(条件2){
+      条件2成立执行的代码
+    }else if(条件N){
+      条件N成立执行的代码
+    }else{
+      上面条件都不成立执行的代码
+    }
+    */
+    var score = 80
+    if (score >= 90) {
+      console.log('优秀')
+    } else if (score >= 80) {
+      console.log('良好')
+    } else if (score >= 70) {
+      console.log('较好')
+    } else if (score >= 60) {
+      console.log('及格')
+    } else {
+      console.log('不及格')
+    }
+
+  </script>
+</body>
+
+</html>

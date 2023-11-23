@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>循环语句</title>
+</head>
+
+<body>
+  <script>
+    // for循环
+    /*
+    for(初始化表达式;条件表达式;条件改变表达式){
+      循环体
+    }
+    */
+    for (var i = 1; i <= 10; i++) {
+      console.log(i)
+    }
+
+    console.log('========while循环==========')
+    // while循环
+    /*
+    while(条件表达式){
+      循环体语句
+    }
+    */
+    var i = 1
+    while (i < 11) {
+      console.log(i)
+      i++
+    }
+    console.log('========终止循环语句==========')
+    // 终止循环语句
+    // break 终止整个循环
+    for (var i = 1; i <= 5; i++) {
+      // 当i=3的时候，终止整个循环
+      if (i == 3) {
+        break
+      }
+      console.log(i)
+    }
+    // continue 跳过本次循环，下次循环继续
+    for (var i = 1; i <= 5; i++) {
+      // 当i=3的时候，终止整个循环
+      if (i == 3) {
+        continue
+      }
+      console.log(i)
+    }
+  </script>
+</body>
+
+</html>
