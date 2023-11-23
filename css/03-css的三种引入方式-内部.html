@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>css内部样式,可以在html中的head标签里面去定义一个style标签设置，是作用于当前页面</title>
+  <style>
+    /* 为谁添加样式，即确定添加样式的目标 */
+    /* todo 为p标签变成红色 */
+    p {
+      color: red
+    }
+
+    /*todo 把当前页面所有div的字体颜色变为蓝色*/
+    div {
+      color: blue;
+    }
+    /*todo 把当前页面的span标签的字体大小设置为*/
+    span{
+      font-size: 30px;
+      background-color: darkblue;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 
+    内部样式作用于当前整个页面,
+    内部样式写的位置是在head标签中定义一个style标签
+    确定要添加样式的目标
+  -->
+
+  <p>这是第一段落</p>
+  <p>这是第二段落</p>
+  <p>这是第三段落</p>
+
+  <div>div1块级标签</div>
+  <div>div2块级标签</div>
+
+  <span>span1行内标签</span>
+  <span>span2行内标签</span>
+</body>
+
+</html>

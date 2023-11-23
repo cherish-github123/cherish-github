@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>其他选择器(包含选择器、子选择器、选择器分组)</title>
+  <style>
+    /* 1.
+    包含选择器  语法：选择器 选择器 */
+    div span {   /*给div下面的盘p标签添加样式*/
+      color: red;
+    }
+
+    /* 2.子选择器  语法：父选择器 > 子选择器 */
+    #div1>p {      /* 给id是div1下面的p标签指定样式*/
+      font-size: 30px;
+    }
+
+    /* 3.选择器分组, 同时匹配多个选择器 选择器，选择器，选择器*/
+    font,
+    u,
+    b,
+    .span1 {   /*将font标签、u标签、b标签以及class为span1的选择器都定义为同一个样式*/
+      color: indigo;
+      font-size: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 包含选择器， 子选择器， 选择器分组-->
+  <div>
+    <span>span1</span>
+  </div>
+  <span>span2</span>
+
+  <br>
+  <div id="div1">
+    <p>段落</p>
+    <span>span2</span>
+  </div>
+  <p>外部的段落</p>
+
+  <br>
+  <font>font1</font>
+  <u>u标签</u>
+  <b>b标签</b>
+
+
+  <span class="span1">class叫做span1的span标签</span>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>css基本选择器（标签+类+id）,选择器是匹配html标签的方式</title>
+  <style>
+    /* 1. todo 标签选择器 */
+    p {
+      color: red;
+    }
+
+    span {
+      font-size: 20px;
+    }
+
+    /* 2. todo 类选择器 在class名称前加.  */
+    .blue {
+      color: blue;
+    }
+
+    /* 3.todo id选择器 在id前面加#   */
+    #div1 {
+      width: 200px;
+      height: 200px;
+      background-color: darkorange;
+    }
+  </style>
+</head>
+
+<body>
+  <!--标签选择器， 类选择器， id选择器-->
+  <!-- 标签上的class属性类定义类名, 同样的class在页面中是可以定义多个的 -->
+  <p>段落1</p>
+  <div class="blu">div1</div>
+  <span class="blue">span1</span>
+  <!-- 标签上的id属性来定义id，一个页面中不定义同名的id-->
+  <div id="div1">hduewgfuyruhvg</div>
+</body>
+
+</html>
