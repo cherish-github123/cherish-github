@@ -32,7 +32,6 @@ driver.find_element(By.ID, 'su').click()
 # get_attribute() 获得标签属性值的方法
 print(kw.get_attribute('outerHTML'))  # 获取标签的源码
 
-
 # TODO is_displayed()  判断元素是否可见
 # 请求目标网址 - https://sahitest.com/demo/visible.htm
 time.sleep(2)
