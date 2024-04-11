@@ -2,8 +2,7 @@ import requests
 import pymysql
 import json
 import jsonpath
-
-
+from config import *
 class ApiKeys():
     # TODO 发送get请求
     def get(self,url,params=None, **kwargs):
@@ -51,11 +50,11 @@ class ApiKeys():
         """
         # todo 1 连接数据库
         connection=pymysql.Connection(
-            host='shop-xo.hctestedu.com',  # 数据库地址
-            port=3306,  # 端口号
-            user='api_test',  # 数据库用户名
-            password='Aa9999!',  # 数据库密码
-            db='shopxo_hctested',  # 数据库名称
+            host=DATABASE_HOST,  # 数据库地址，已在config.py文件中配置好的常量，可以直接导入使用
+            port=DATABASE_PORT,  # 端口号
+            user=DATABASE_USERNAME,  # 数据库用户名
+            password=DATABASE_PASSWORD,  # 数据库密码
+            db=DATABASE_NAME,  # 数据库名称
         )
         # todo 2 创建游标对象，使用游标对象操作数据库
         cursor=connection.cursor()
