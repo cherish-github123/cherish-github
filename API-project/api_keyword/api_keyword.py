@@ -1,0 +1,93 @@
+import requests
+import pymysql
+import json
+import jsonpath
+
+
+class ApiKeys():
+    # TODO 发送get请求
+    def get(self,url,params=None, **kwargs):
+        """
+        :param url: 请求地址
+        :param params:  get方法的参数，一般拼接在url后面
+        :param kwargs: 其他参数
+        :return: 返回响应数据
+        """
+        res=requests.get(url,params=params,**kwargs)
+        return res
+
+    # TODO 发送post请求
+    def post(self,url, data=None, json=None, **kwargs):
+        """
+        :param url: 请求地址
+        :param data: 普通表单格式的参数放在data中
+        :param json: json格式的参数放在json中
+        :param kwargs: 其他参数
+        :return:  返回响应数据
+        """
+        res=requests.post(url=url,data=data,json=json,**kwargs)
+        return res
+
+    # TODO 提取响应数据
+    def get_data(self,response,value):
+        """
+        :param reponse: 响应结果
+        :param value: 要从响应结果中获取的数据，json path表达式
+        :return: 返回获取的结果,因为获取到的数据类型是列表，故返回第一个值
+        """
+        if isinstance(response,str):
+            # 判断如果传入的response是json格式的字符串，就转换为python对象（字典或者列表）
+            response=json.loads(response)
+
+        value_list=jsonpath.jsonpath(response,value)
+        return value_list[0]
+
+    # TODO 从数据库里面提取数据
+    def get_data_from_database(self,select_sql):
+        """
+
+        :param sql: sql语句
+        :return: 返回sql语句查询结果
+        """
+        # todo 1 连接数据库
+        connection=pymysql.Connection(
+            host='shop-xo.hctestedu.com',  # 数据库地址
+            port=3306,  # 端口号
+            user='api_test',  # 数据库用户名
+            password='Aa9999!',  # 数据库密码
+            db='shopxo_hctested',  # 数据库名称
+        )
+        # todo 2 创建游标对象，使用游标对象操作数据库
+        cursor=connection.cursor()
+        # todo 3  编写sql语句
+        sql=select_sql
+        # todo 4  使用游标对象执行sql语句
+        cursor.execute(sql)
+        # todo 5 获取结果集
+        result=cursor.fetchone()
+        # todo 6 关闭游标对象
+        cursor.close()
+        # todo 7 关闭数据库连接对象
+        connection.close()
+        return  result   # 得到的数据是一个元组
+
+
+
+if __name__ == '__main__':
+    apikey=ApiKeys()
+    url="http://shop-xo.hctestedu.com/?s=api/user/login"
+    public_params = {"application": "app", "application_client_type": "weixin"}
+    data = {"accounts": "tyl151006", "pwd": "123456", "type": "username"}
+    # 发送请求，登录接口
+    res=apikey.post(url=url,params=public_params,data=data)
+    print(res.json())
+
+    # 获取登录成功后的token
+    token=apikey.get_data(res.json(),"$..token")
+    print(token)
+
+    # 从数据库中获取数据
+    sql="select username from sxo_user where username='tyl151006'"
+    print(apikey.get_data_from_database(select_sql=sql))
+
+

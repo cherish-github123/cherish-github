@@ -1,5 +1,4 @@
 import time
-
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
@@ -15,14 +14,6 @@ class TestCase:
         self.driver.get('https://sahitest.com/demo/clicks.htm')
 
     def click(self):
-        # 简单方式
-        """
-        time.sleep(2)
-        ipt = self.driver.find_element(By.XPATH, '//input[@value="click me"]')
-        ipt.click()
-        """
-
-        # ac对象方式
         # 创建ac对象
         ac = ActionChains(self.driver)
         ipt = self.driver.find_element(By.XPATH, '//input[@value="click me"]')
@@ -32,7 +23,6 @@ class TestCase:
         # 右击
         time.sleep(1)
         btn = self.driver.find_element(By.XPATH, '//input[@value="right click me"]')
-
         ac = ActionChains(self.driver)
         ac.context_click(btn).perform()
 
@@ -46,7 +36,6 @@ class TestCase:
     def drag_and_drop(self):
         # 拖动
         self.driver.get('https://sahitest.com/demo/dragDropMooTools.htm')
-
         time.sleep(2)
         ac = ActionChains(self.driver)
         # 定位操作元素和目标元素

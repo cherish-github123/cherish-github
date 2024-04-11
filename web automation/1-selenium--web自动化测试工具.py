@@ -9,6 +9,7 @@ time.sleep(2)
 driver.maximize_window()  # 最大化窗口，是浏览器驱动对象上面的方法
 
 
+
 # 在浏览器中输入网址-www.baidu.com
 driver.get('http://www.baidu.com')
 time.sleep(2)
