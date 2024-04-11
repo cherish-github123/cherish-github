@@ -1,0 +1,88 @@
+- actualResult: $..msg
+  caseName: 成功调用登陆接口，msg返回登录成功
+  data:
+    accounts: hami
+    pwd: 123456
+    type: username
+  expectResult: 登录成功
+  featureName: F01_用户管理
+  headers: null
+  id: 0
+  jsonExData:
+    MSG: $.msg
+    VAR_TOKEN: $..data.token
+  method: post
+  params:
+    application: app
+    application_client_type: weixin
+  path: api/user/login
+  rank: blocker
+  regularExData: null
+  remark: 正常用例登陆
+  result: 测试通过，断言成功。
+  sqlAssertData:
+    id: SELECT id FROM sxo_user WHERE username='hami'
+    name: SELECT username FROM sxo_user WHERE username='hami'
+  sqlExData:
+    id: SELECT id FROM sxo_user WHERE username='hami'
+    name: SELECT username FROM sxo_user WHERE username='hami'
+  sqlExpectResult:
+    id: 65
+    name: hami
+  storyName: F01S01_登陆
+  type: data
+  url: http://shop-xo.hctestedu.com/index.php?s=
+- actualResult: $..msg
+  caseName: 加入购物车
+  data:
+    goods_id: 10
+    spec: null
+    stock: 1
+  expectResult: 加入成功
+  featureName: F01_购物车管理
+  headers:
+    Content-Type: application/json;charset=UTF-8
+  id: 1
+  jsonExData: null
+  method: post
+  params:
+    application: app
+    application_client_type: weixin
+    token: 19182bcffd67ef89fae61d09da16d2fd
+  path: api/cart/save
+  rank: blocker
+  regularExData: null
+  remark: 能够正确的加入购物车
+  result: 测试通过，断言成功。
+  sqlAssertData: null
+  sqlExData: null
+  sqlExpectResult: null
+  storyName: F02S01_加入购物车
+  type: json
+  url: http://shop-xo.hctestedu.com/index.php?s=
+- actualResult: $..msg
+  caseName: 错误的密码进行登录
+  data:
+    accounts: hami
+    pwd: 4564641
+    type: username
+  expectResult: 密码错误
+  featureName: F01_用户管理
+  headers: null
+  id: 2
+  jsonExData: null
+  method: post
+  params:
+    application: app
+    application_client_type: weixin
+  path: api/user/login
+  rank: blocker
+  regularExData: null
+  remark: 正常用例登陆
+  result: 测试通过，断言成功。
+  sqlAssertData: null
+  sqlExData: null
+  sqlExpectResult: null
+  storyName: F01S01_登陆
+  type: data
+  url: http://shop-xo.hctestedu.com/index.php?s=
