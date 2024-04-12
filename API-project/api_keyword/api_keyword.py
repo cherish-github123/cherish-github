@@ -3,6 +3,8 @@ import pymysql
 import json
 import jsonpath
 from config import *
+
+
 class ApiKeys():
     # TODO 发送get请求
     def get(self,url,params=None, **kwargs):
@@ -16,7 +18,7 @@ class ApiKeys():
         return res
 
     # TODO 发送post请求
-    def post(self,url, data=None, json=None, **kwargs):
+    def post(self,url, data=None, json=None, headers=None,**kwargs):
         """
         :param url: 请求地址
         :param data: 普通表单格式的参数放在data中
@@ -24,8 +26,9 @@ class ApiKeys():
         :param kwargs: 其他参数
         :return:  返回响应数据
         """
-        res=requests.post(url=url,data=data,json=json,**kwargs)
+        res=requests.post(url=url,data=data,json=json,headers=headers,**kwargs)
         return res
+    
 
     # TODO 提取响应数据
     def get_data(self,response,value):
