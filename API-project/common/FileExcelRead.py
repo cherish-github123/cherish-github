@@ -15,7 +15,7 @@ class FileExcelRead():
             # 打开现有的excel文件或者创建一个新的文件
             # openpyxl.load_workbook(),用于加载excel文件并且返回一个Workbook对象，在python中对excel文件进行操作
             workbook=openpyxl.load_workbook(excel_file_path)
-            print(workbook)
+            print("返回的workbook:",workbook)
         except:
             # 如果文件不存在，就创建一个新的excel对象
             workbook=openpyxl.Workbook()
@@ -31,7 +31,7 @@ class FileExcelRead():
 
         # 获取列名，把sheet页第2行的数据拿到当做key值
         headers=[cell.value for cell in worksheet[2]]   # 对第二行的每个单元格获取它的值，并将这些值放在一个列表中
-        # 将数据存储为字典，并且放在data中
+        # 将excel的每一行数据存储为一个字典，并且放在data中
         data=[]
 
         """
@@ -44,6 +44,7 @@ class FileExcelRead():
             data.append(dict(zip(headers,row)))
 
         workbook.close()
+        print("从excel读取的数据为：",data)
         return data
 
     @staticmethod
@@ -72,8 +73,6 @@ class FileExcelRead():
 
 
 
-
-
-
 if __name__ == '__main__':
-    print(FileExcelRead.read_excel())
+    FileExcelRead.read_excel()
+

@@ -9,7 +9,7 @@ from deepdiff import DeepDiff
 
 class ApiKeys():
     # TODO 发送get请求
-    @allure.step("测试步骤：发送get请求")
+    @allure.step("测试步骤------->发送get请求")
     def get(self, url, params=None, **kwargs):
         """
         :param url: 请求地址
@@ -21,7 +21,7 @@ class ApiKeys():
         return res
 
     # TODO 发送post请求
-    @allure.step("测试步骤：发送post请求")
+    @allure.step("测试步骤------>发送post请求")
     def post(self, url, data=None, json=None, headers=None, **kwargs):
         """
         :param url: 请求地址
@@ -34,8 +34,8 @@ class ApiKeys():
         return res
 
     # TODO 提取响应数据
-    @allure.step("测试步骤：json path提取响应数据")
-    def get_data(self, response, value):
+    @allure.step("测试步骤------->json path提取响应数据")
+    def get_data(self, response, key):
         """
         :param reponse: 响应结果
         :param value: 要从响应结果中获取的数据，json path表达式
@@ -46,12 +46,12 @@ class ApiKeys():
             response = json.loads(response)
             print(response)
 
-        value_list = jsonpath.jsonpath(response, value)
-        return value_list[0]
-
+        value_list = jsonpath.jsonpath(response, key)
+        print("json path获取到的数据：", value_list)
+        return value_list[0]  # json path提取出来的数据是列表
 
     # TODO 从数据库里面提取数据
-    @allure.step("测试步骤：从数据库提取数据")
+    @allure.step("测试步骤------->从数据库提取数据")
     def get_data_from_database(self, select_sql):
         """
         :param sql: sql语句
@@ -81,7 +81,7 @@ class ApiKeys():
 
     # TODO 数据对比
     @allure.step("测试步骤：响应数据全量对比")
-    def jsondeepdiff(self, json1, json2, **other):
+    def jsonDeepDiff(self, json1, json2, **other):
         """
         :param json1: 期望结果
         :param json2:  实际结果
@@ -89,7 +89,7 @@ class ApiKeys():
         :return:  布尔值，如果对比一致，就返回一个空字典，不一致就返回不一致的内容
         """
         res = DeepDiff(json1, json2, **other)
-        # 对比一致，则返回空字典
+        # json1与json2对比一致，则返回空字典
         if res == {}:
             return True
         else:

@@ -1,7 +1,7 @@
 import os
-
 import pytest
 import allure_pytest
+
 
 if __name__ == '__main__':
     # -v 显示详细信息，-s，在控制台输出要打印的内容

@@ -14,3 +14,9 @@ DATABASE_USERNAME="api_test"           # 数据库用户名
 DATABASE_PASSWORD="Aa9999!"            # 数据库密码
 DATABASE_NAME="shopxo_hctested"        # 数据库名
 
+# 项目的信息
+PROJECT_URL= "http://shop-xo.hctestedu.com/index.php"
+PUBLIC_PARAMS= {"application": "app", "application_client_type": "weixin"}
+USER_NAME="tyl151006"
+PASSWORD="123456"
+USER_TYPE="username"

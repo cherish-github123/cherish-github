@@ -24,7 +24,7 @@ class FileYamlRead():
         """
 
         with open(yamlfile_path,mode="w",encoding='UTF-8') as file:
-            yaml.dump(data,file,allow_unicode=True)
+            yaml.dump(data, file)
 
 
 if __name__ == '__main__':
