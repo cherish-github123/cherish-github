@@ -41,7 +41,10 @@ class FileExcelRead():
         4.dict(zip(headers,row)),将headers列表中的元素作为键，row列表中的对应元素作为值，创建一个键值对应的字典
         """
         for row in worksheet.iter_rows(min_row=3,values_only=True):
-            data.append(dict(zip(headers,row)))
+            # 用例过滤机制：如果excel文件中有用例不需要执行，可以添加一个字段为is_true,为True执行，为False时不执行
+            new_data=dict(zip(headers,row))
+            if new_data["is_true"] is True:
+                data.append(new_data)
 
         workbook.close()
         print("从excel读取的数据为：",data)
