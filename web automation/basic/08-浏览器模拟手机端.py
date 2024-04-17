@@ -2,14 +2,13 @@ import time
 
 from selenium import webdriver
 
-# 创建options对象,Options是chrome.options模块下面的一个类
+# 创建options对象,Options是chrome.options模块下面的一个类，用于配置webdriver实例的对象
 
 options = webdriver.ChromeOptions()
 # 为options对象添加手机配置
 mobileEmulation = {"deviceName": 'iPhone 6'}
 options.add_experimental_option('mobileEmulation', mobileEmulation)
-# add_experimental是Options类上面的一个方法
-
+# add_experimental是Options类上面的一个方法，向配置的对象添加一些实验性选项
 
 # 打开浏览器,添加配置项
 driver = webdriver.Chrome(options=options)

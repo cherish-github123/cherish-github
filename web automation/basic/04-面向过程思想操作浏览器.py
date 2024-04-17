@@ -22,9 +22,9 @@ time.sleep(2)
 su = driver.find_element(By.ID, 'su')
 su.click()
 # 3、等待2秒
-time.sleep(2)
+time.sleep(7)
 
-# 4、TODO 获取页面标题，并打印出来
+# 4、TODO 打印页面标题
 print(driver.title)
 
 # 5、关闭Chrome浏览器

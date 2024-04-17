@@ -13,6 +13,7 @@ class TestCase:
         # 请求目标网址
         self.driver.get('https://sahitest.com/demo/clicks.htm')
 
+
     def click(self):
         # 创建ac对象
         ac = ActionChains(self.driver)

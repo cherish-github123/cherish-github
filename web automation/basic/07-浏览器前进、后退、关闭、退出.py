@@ -9,6 +9,12 @@ time.sleep(2)
 driver.get('https://www.baidu.com')
 
 # TODO 浏览器后退
+# 先输入内容进行搜索，再后退
+kw = driver.find_element(By.ID, 'kw')
+kw.send_keys('天气预报')
+time.sleep(2)
+su = driver.find_element(By.ID, 'su')
+su.click()
 time.sleep(2)
 driver.back()
 # TODO 浏览器前进

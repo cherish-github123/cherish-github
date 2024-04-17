@@ -32,7 +32,7 @@ driver.find_element(By.ID, 'su').click()
 # get_attribute() 获得标签属性值的方法
 print(kw.get_attribute('outerHTML'))  # 获取标签的源码
 
-# TODO is_displayed()  判断元素是否可见
+# TODO is_displayed()  判断元素是否可见，返回布尔值
 # 请求目标网址 - https://sahitest.com/demo/visible.htm
 time.sleep(2)
 driver.get('https://sahitest.com/demo/visible.htm')
@@ -41,7 +41,7 @@ div1 = driver.find_element(By.XPATH, '/html/body/div[3]')
 print(div1.is_displayed())  # False
 print(driver.find_element(By.ID, 'ud').is_displayed()) # True
 
-# TODO is_enabled()  判断元素是否可用
+# TODO is_enabled()  判断元素是否可用，是否处于可操作状态，返回布尔值
 url = 'file://' + os.path.join(os.path.dirname(__file__), 'html/demo.html')
 # 请求网址 - url
 time.sleep(2)

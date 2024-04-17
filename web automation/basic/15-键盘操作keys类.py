@@ -2,7 +2,9 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import time
+"""
 
+"""
 # 1.打开浏览器
 class Test:
     def __init__(self):

@@ -13,31 +13,31 @@ driver.get('https://www.baidu.com')
 time.sleep(1)
 driver.find_element(By.LINK_TEXT, '新闻').click()
 
-# TODO 1 常用属性
+# TODO 1 ----------------常用属性------------------
 # 浏览器名称
 print(driver.name)
 # 当前url
 print(driver.current_url)
 # 当前页面标题
 print(driver.title)
-# 网页源码
+# 获取网页源码
 print(driver.page_source)
 
 # 当前浏览器的所有窗口句柄
-print(driver.window_handles)
+print(driver.window_handles)     # 百度首页通过“新闻”打开了两个窗口
 # 获取当前窗口句柄
-print(driver.current_window_handle)
+print(driver.current_window_handle)    # 鼠标停留的窗口还是百度首页的窗口
 
-# TODO 2 常用方法
+# TODO 2 --------------------常用方法------------------
 # 浏览器后退
-driver.back()
-# 浏览器前进
-driver.forward()
-# 浏览器刷新
-driver.refresh()
-# 关闭当前窗口
-driver.close()
-# 退出浏览器
-driver.quit()
-# 最大化浏览器窗口
-driver.maximize_window()
+# driver.back()
+# # 浏览器前进
+# driver.forward()
+# # 浏览器刷新
+# driver.refresh()
+# # 关闭当前窗口
+# driver.close()
+# # 退出浏览器
+# driver.quit()
+# # 最大化浏览器窗口
+# driver.maximize_window()

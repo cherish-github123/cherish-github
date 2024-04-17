@@ -47,7 +47,7 @@ class TestCase:
         print(form.get_attribute('outerHTML'))
 
     def find_elements(self):
-        list=self.driver.find_elements(By.TAG_NAME, 'input')  # 获取所有的input标签
+        list=self.driver.find_elements(By.TAG_NAME, 'input')  # 获取页面中所有的input标签
         pprint.pprint(list)
         print(len(list))
 
