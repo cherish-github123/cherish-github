@@ -54,6 +54,11 @@ print(input1.is_enabled())  # True
 input2 = driver.find_element(By.XPATH, '//input[2]')
 print(input2.is_enabled())  # False
 
+
+
 # 退出浏览器
 time.sleep(3)
 driver.quit()
+
+
+

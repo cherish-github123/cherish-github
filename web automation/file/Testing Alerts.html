@@ -1,0 +1,86 @@
+
+<!-- saved from url=(0050)https://www.selenium.dev/selenium/web/alerts.html# -->
+<html><!-- Padding to account for small screens of mobile devices --><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>
+    p {margin-top:48px;}
+</style>
+
+    <title>Testing Alerts</title>
+
+    <script type="text/javascript">
+        function setInnerText(id, value) {
+          document.getElementById(id).innerHTML = '<p>' + value + '</p>';
+        }
+
+        function displayPrompt() {
+          setInnerText('text', prompt('Enter something'));
+        }
+
+        function displayPromptWithDefault() {
+          setInnerText('text', prompt('Enter something', 'This is a default value'));
+        }
+
+        function displayTwoPrompts() {
+          setInnerText('text1', prompt('First'));
+          setInnerText('text2', prompt('Second'));
+        }
+
+        function slowAlert() {
+          window.setTimeout(function() {
+            alert('Slow');
+          }, 200);
+        }
+    </script>
+<script src="chrome-extension://mooikfkahbdckldjjndioackbalphokd/assets/prompt.js"></script></head>
+<body>
+
+<h1>Testing Alerts and Stuff</h1>
+
+<p>This tests alerts: <a href="https://www.selenium.dev/selenium/web/alerts.html#" id="alert" onclick="alert(&#39;cheese&#39;);">click me</a></p>
+
+<p>This tests alerts: <a href="https://www.selenium.dev/selenium/web/alerts.html#" id="empty-alert" onclick="alert(&#39;&#39;);">click me</a></p>
+
+<p>Let's make the <a href="https://www.selenium.dev/selenium/web/alerts.html#" id="prompt" onclick="displayPrompt();">prompt happen</a></p>
+
+<p>Let's make the <a href="https://www.selenium.dev/selenium/web/alerts.html#" id="prompt-with-default" onclick="displayPromptWithDefault();">prompt with default happen</a></p>
+
+<p>Let's make TWO <a href="https://www.selenium.dev/selenium/web/alerts.html#" id="double-prompt" onclick="displayTwoPrompts();">prompts happen</a></p>
+
+<p>A <a href="https://www.selenium.dev/selenium/web/alerts.html#" id="slow-alert" onclick="slowAlert();">SLOW</a> alert</p>
+
+<p>This is a test of a confirm:
+    <a href="https://www.selenium.dev/selenium/web/simpleTest.html" id="confirm" onclick="return confirm(&#39;Are you sure?&#39;);">test confirm</a></p>
+
+<p>This is a test of showModalDialog: <a href="https://www.selenium.dev/selenium/web/alerts.html#" id="dialog" onclick="showModalDialog(&#39;javascriptPage.html&#39;)">test dialog</a></p>
+
+<p>This is a test of an alert in an iframe:
+  <iframe src="./Testing Alerts_files/iframeWithAlert.html" name="iframeWithAlert"></iframe>
+</p>
+
+<p>This is a test of an alert in a nested iframe:
+  <iframe src="./Testing Alerts_files/iframeWithIframe.html" name="iframeWithIframe"></iframe>
+</p>
+
+<p>This is a test of an alert open from onload event handler: <a id="open-page-with-onload-alert" href="https://www.selenium.dev/selenium/web/pageWithOnLoad.html">open new page</a></p>
+
+<p>This is a test of an alert open from onload event handler: <a id="open-window-with-onload-alert" href="https://www.selenium.dev/selenium/web/pageWithOnLoad.html" target="onload">open new window</a></p>
+
+<p>This is a test of an alert open from onunload event handler: <a id="open-page-with-onunload-alert" href="https://www.selenium.dev/selenium/web/pageWithOnUnload.html">open new page</a></p>
+
+<p>This is a test of an alert open from onclose event handler: <a id="open-window-with-onclose-alert" href="https://www.selenium.dev/selenium/web/pageWithOnUnload.html" target="onclose">open new window</a></p>
+
+<p>This is a test of an alert open from onclose event handler: <a id="open-new-window" href="https://www.selenium.dev/selenium/web/blank.html" target="newwindow">open new window</a></p>
+
+<div id="text"></div>
+<div id="text1"></div>
+<div id="text2"></div>
+
+<p><select id="select" onchange="alert(&#39;changed&#39;);">
+  <option id="novalue" value="">Nothing selected</option>
+  <option id="value1" value="1">One</option>
+  <option id="value2" value="2">Two</option>
+  <option id="value3" value="3">Three</option>
+</select></p>
+<p><input id="input" onchange="alert(&#39;change fired&#39;);" value="onchange"></p>
+
+
+</body></html>

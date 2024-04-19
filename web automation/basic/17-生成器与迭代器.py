@@ -42,7 +42,7 @@ def f1(n):
         n -= 1
 
 
-# 创建迭代器
+# 使用这个生成器创建迭代器
 generator = f1(10)
 # 通过迭代器的next()方法依次获取元素
 # print(next(generator))
