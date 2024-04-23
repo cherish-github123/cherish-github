@@ -28,4 +28,4 @@ class FileYamlRead():
 
 
 if __name__ == '__main__':
-    print(FileYamlRead.read_yaml())
+    print(FileYamlRead.read_yaml())        # 返回的是列表

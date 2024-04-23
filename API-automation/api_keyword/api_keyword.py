@@ -35,7 +35,7 @@ class ApiKeys():
 
     # TODO 提取响应数据
     @allure.step("测试步骤------->json path提取响应数据")
-    def get_data(self, response, key):
+    def get_data_from_response(self, response, key):
         """
         :param reponse: 响应结果
         :param value: 要从响应结果中获取的数据，json path表达式
