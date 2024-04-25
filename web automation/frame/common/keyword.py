@@ -8,16 +8,17 @@ from selenium.common.exceptions import TimeoutException
 
 # 获取driver对象
 def get_driver(browser='chrome'):
-     # 打开浏览器，返回driver对象
-     driver=None
-     if browser == 'chrome':
-         return webdriver.Chrome()
-     elif browser == 'Firefox':
-         return webdriver.Firefox()
-     else:
-         print('不支持的浏览器')
+    # 打开浏览器，返回driver对象
+    driver = None
+    if browser == 'chrome':
+        return webdriver.Chrome()
+    elif browser == 'Firefox':
+        return webdriver.Firefox()
+    else:
+        print('不支持的浏览器')
 
-     return driver
+    return driver
+
 
 # 封装
 class KeyWord():
@@ -85,6 +86,13 @@ class KeyWord():
         element = self.find_element(locator)
         if element:
             return element.text
+
+    def element_mark(self, el):
+        # 将获取到的元素进行标记
+        self.driver.execute_script(
+            "arguments[0].setAttribute('style',arguments[1]);",
+            el,
+            "border:2px solid red;")
 
     def quit(self):
         # 退出浏览器
