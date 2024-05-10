@@ -13,7 +13,7 @@ class TestCase:
     all_value = {}
 
     def __dynamic_title(self, CaseData):
-        # 动态生成测试标题
+        #  TODO -----动态生成测试标题
         if CaseData["caseName"] is not None:
             # 将获取到的ID和caseName拼接起来，为一个测试标题
             caseName = f"CASEID:{CaseData['id']}---{CaseData['caseName']}"
