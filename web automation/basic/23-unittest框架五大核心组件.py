@@ -12,9 +12,9 @@
 
 import unittest
 
-# TODO 第一组件：测试用例类
+# TODO 1 第一组件：测试用例类
 class TestCase(unittest.TestCase):
-    # TODO 第四大组件：测试夹具
+    # TODO 4 第四大组件：测试夹具
     def setUp(self) -> None:
         print("---------->已获取到正确的用户名和密码")
 
@@ -29,14 +29,14 @@ class TestCase(unittest.TestCase):
 
     def test_get_info(self):
         print("获取用户信息操作")
-    # TODO 第五大组件：断言
+    # TODO 5 第五大组件：断言
         ex_result="信息正确"
         sj_result="信息"
         assert ex_result==sj_result,"断言失败"
 
 
 
-# TODO 第二组件：测试套件
+# TODO  2 第二组件：测试套件
 def suite():
     suite=unittest.TestSuite()
     suite.addTest(TestCase("test_login"))
@@ -47,7 +47,7 @@ def suite():
 
 
 if __name__ == '__main__':
-    # TODO 第三大组件：测试运行器
+    # TODO 3 第三大组件：测试运行器
     runner=unittest.TextTestRunner()
     test_suite=suite()
     runner.run(test_suite)

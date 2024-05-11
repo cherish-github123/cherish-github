@@ -67,4 +67,21 @@ def fibonnacci(n):
     return origin_list
 
 
-print(fibonnacci(11))   #返回‘[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
+print(fibonnacci(11))   #返回[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
+
+
+
+
+list=[9,89,657,83,7,3,79,5,35,44,78,50]
+odd=[]  # 奇数列表
+even=[]  # 偶数列表
+while len(list)>0:
+    number=list.pop()
+    if number%2==0:
+        even.append(number)
+    else:
+        odd.append(number)
+print(odd)
+print(even)
+
+
