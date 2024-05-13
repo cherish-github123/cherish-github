@@ -8,6 +8,7 @@ import base64
 import requests
 from Cryptodome.Cipher import AES
 import json
+import hashlib
 
 class Data_Encrypt():
     def __init__(self,key):
@@ -16,6 +17,8 @@ class Data_Encrypt():
         self.aes=AES.new(self.key,AES.MODE_ECB)   # 使用AES加密算法的ECB模式创建AES加密器
         # 截断函数，去除填充的字符
         self.unpad = lambda data: data[0:-ord(data[-1])]
+
+
 
     #  缺几位数据就补齐多少位数据：要补到16的倍数
     def pad(self, text):  # text == tyl151006
@@ -55,6 +58,7 @@ class Data_Encrypt():
         return self.unpad(msg)           #  把转回来的数据后面的字符去掉
 
 
+
 def login(username,password):
     url="http://127.0.0.1:8080/login_safe"
     # 需要将传入的账号和密码进行加密
@@ -70,10 +74,4 @@ def login(username,password):
 
 
 if __name__ == '__main__':
-            login("tyl151006", "123456")
-
-
-
-
-
-
+        login("tyl151006", "123456")

@@ -14,23 +14,24 @@ class ApiKeys():
         """
         :param url: 请求地址
         :param params:  get方法的参数，一般拼接在url后面
-        :param kwargs: 其他参数
+        :param **kwargs: 其他参数,不定长的字典，可以传递headers、cookies、timeout等参数，一共有13个参数
         :return: 返回响应数据
         """
-        res = requests.get(url, params=params, **kwargs)
-        return res
+        response = requests.get(url=url, params=params, **kwargs)
+        return response
 
     # TODO 发送post请求
     @allure.step("测试步骤------>发送post请求")
-    def post(self, url, data=None, json=None, headers=None, **kwargs):
+    def post(self, url, params=None, data=None, json=None, headers=None, **kwargs):
         """
         :param url: 请求地址
+        :params params:接口的公共参数，如果有的话，放在params中，会拼接在URL后面
         :param data: 普通表单格式的参数放在data中
         :param json: json格式的参数放在json中
         :param kwargs: 其他参数
         :return:  返回响应数据
         """
-        res = requests.post(url=url, data=data, json=json, headers=headers, **kwargs)
+        res = requests.post(url=url, params=params,data=data, json=json, headers=headers, **kwargs)
         return res
 
     # TODO 提取响应数据
@@ -38,7 +39,7 @@ class ApiKeys():
     def get_data_from_response(self, response, key):
         """
         :param reponse: 响应结果
-        :param value: 要从响应结果中获取的数据，json path表达式
+        :param key: 要从响应结果中获取的数据，json path表达式
         :return: 返回获取的结果,因为获取到的数据类型是列表，故返回第一个值
         """
         if isinstance(response, str):
@@ -48,7 +49,7 @@ class ApiKeys():
 
         value_list = jsonpath.jsonpath(response, key)
         print("json path获取到的数据：", value_list)
-        return value_list[0]  # json path提取出来的数据是列表
+        return value_list[0]  # json path提取出来的数据是列表,我们只需要列表里面的那个值，可以用下标0获取该值
 
     # TODO 从数据库里面提取数据
     @allure.step("测试步骤------->从数据库提取数据")
@@ -106,9 +107,15 @@ if __name__ == '__main__':
     print(res.json())
 
     # 获取登录成功后的token
-    token = apikey.get_data(res.json(), "$..token")
-    print(token)
+    token = apikey.get_data_from_response(res.json(), "$..token")
+    print("获取到的token值：",token)
+
 
     # 从数据库中获取数据
     sql = "select username from sxo_user where username='tyl151006'"
     print(apikey.get_data_from_database(select_sql=sql))
+
+
+
+
+
