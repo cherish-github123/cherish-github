@@ -5,14 +5,14 @@ from api_keyword.api_keyword import ApiKeys
 from config import *
 
 @pytest.fixture(scope="session")
-def test_fixture():
+def login_fixture():
     # 定义一个用户登录的夹具
     api_key=ApiKeys()
     login_url=PROJECT_URL+"s=/api/user/login"
     public_params=PUBLIC_PARAMS
     data={"accounts":USER_NAME,"pwd":PASSWORD,"type":USER_TYPE}
     res=api_key.post(url=login_url,params=public_params,data=data)
-    token =api_key.get_data(res.json(),"$..token")
+    token =api_key.get_data_from_response(res.json(),"$..token")
     return api_key,token
 
 

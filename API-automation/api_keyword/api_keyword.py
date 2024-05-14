@@ -12,6 +12,7 @@ class ApiKeys():
     @allure.step("测试步骤------->发送get请求")
     def get(self, url, params=None, **kwargs):
         """
+        方法的缺省值：参数的默认值为None,如果没有传值，就使用默认值None
         :param url: 请求地址
         :param params:  get方法的参数，一般拼接在url后面
         :param **kwargs: 其他参数,不定长的字典，可以传递headers、cookies、timeout等参数，一共有13个参数
@@ -28,24 +29,25 @@ class ApiKeys():
         :params params:接口的公共参数，如果有的话，放在params中，会拼接在URL后面
         :param data: 普通表单格式的参数放在data中
         :param json: json格式的参数放在json中
+        :param headers:请求头，一般用来设置Content-Type,headers={"Content-Type":"application/json;charset=utf-8"}
         :param kwargs: 其他参数
         :return:  返回响应数据
         """
-        res = requests.post(url=url, params=params,data=data, json=json, headers=headers, **kwargs)
-        return res
+        response = requests.post(url=url, params=params, data=data, json=json, headers=headers, **kwargs)
+        print(response.json())
+        return response
 
     # TODO 提取响应数据
     @allure.step("测试步骤------->json path提取响应数据")
     def get_data_from_response(self, response, key):
         """
-        :param reponse: 响应结果
+        :param reponse: 请求的响应结果
         :param key: 要从响应结果中获取的数据，json path表达式
         :return: 返回获取的结果,因为获取到的数据类型是列表，故返回第一个值
         """
         if isinstance(response, str):
             # 判断如果传入的response是json格式的字符串：'{"name": "John", "age": 30, "city": "New York"}'，就转换为python对象（字典或者列表）
             response = json.loads(response)
-            print(response)
 
         value_list = jsonpath.jsonpath(response, key)
         print("json path获取到的数据：", value_list)
@@ -102,14 +104,13 @@ if __name__ == '__main__':
     url = "http://shop-xo.hctestedu.com/?s=api/user/login"
     public_params = {"application": "app", "application_client_type": "weixin"}
     data = {"accounts": "tyl151006", "pwd": "123456", "type": "username"}
+
     # 发送请求，登录接口
-    res = apikey.post(url=url, params=public_params, data=data)
-    print(res.json())
+    response = apikey.post(url=url, params=public_params, data=data)
 
     # 获取登录成功后的token
-    token = apikey.get_data_from_response(res.json(), "$..token")
+    token=apikey.get_data_from_response(response.json(), "$..token")
     print("获取到的token值：",token)
-
 
     # 从数据库中获取数据
     sql = "select username from sxo_user where username='tyl151006'"

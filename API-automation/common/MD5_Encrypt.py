@@ -14,4 +14,4 @@ def md5_encrypt(text):
     return res
 
 
-print(md5_encrypt("tyl151006"))
+print("加密后的数据：",md5_encrypt("tyl151006"))

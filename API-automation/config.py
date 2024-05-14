@@ -20,3 +20,14 @@ PUBLIC_PARAMS= {"application": "app", "application_client_type": "weixin"}
 USER_NAME="tyl151006"
 PASSWORD="123456"
 USER_TYPE="username"
+
+
+
+# 错误信息展示的配置
+ERROR_MSG="接口参数格式有误"
+MSG_DATA_ERROR="响应数据提取失败"
+REQUEST_ERROR="请求失败"
+
+
+ASSERT_PASS="断言成功"
+ASSERT_FAIL="断言失败"
