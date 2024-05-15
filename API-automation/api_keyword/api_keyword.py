@@ -34,7 +34,7 @@ class ApiKeys():
         :return:  返回响应数据
         """
         response = requests.post(url=url, params=params, data=data, json=json, headers=headers, **kwargs)
-        print(response.json())
+        print("---------->响应数据为：",response.json())
         return response
 
     # TODO 提取响应数据
@@ -50,7 +50,8 @@ class ApiKeys():
             response = json.loads(response)
 
         value_list = jsonpath.jsonpath(response, key)
-        print("json path获取到的数据：", value_list)
+        print("---------->开始提取json path数据")
+        print("--------->json path获取到的数据：", value_list[0])
         return value_list[0]  # json path提取出来的数据是列表,我们只需要列表里面的那个值，可以用下标0获取该值
 
     # TODO 从数据库里面提取数据
@@ -61,7 +62,7 @@ class ApiKeys():
         :return: 返回sql语句查询结果
         """
         # todo 1 连接数据库
-        connection = pymysql.Connection(
+        connection = pymysql.connect(
             host=DATABASE_HOST,  # 数据库地址，已在config.py文件中配置好的常量，可以直接导入使用
             port=DATABASE_PORT,  # 端口号
             user=DATABASE_USERNAME,  # 数据库用户名
@@ -75,12 +76,12 @@ class ApiKeys():
         # todo 4  使用游标对象执行sql语句
         cursor.execute(sql)
         # todo 5 获取结果集
-        result = cursor.fetchone()
+        result = cursor.fetchone()  # 得到的是一个元组
         # todo 6 关闭游标对象
         cursor.close()
         # todo 7 关闭数据库连接对象
         connection.close()
-        return result[0]  # 得到的数据是一个元组
+        return result[0]  # 得到的数据是一个元组，所以返回元组的第一个值
 
     # TODO 数据对比
     @allure.step("测试步骤：响应数据全量对比")

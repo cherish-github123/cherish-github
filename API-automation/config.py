@@ -3,7 +3,12 @@
 YAML_FILE_PATH="../data/yaml/api_yaml_V5.yaml"
 
 # excel文件路径
-EXCEL_FILE_PATH="../data/excel/api_cases_V1.xlsx"
+EXCEL_FILE_PATH1="./data/excel/api_cases_V1.xlsx"
+EXCEL_FILE_PATH2="./data/excel/api_cases_V2.xlsx"
+EXCEL_FILE_PATH3="./data/excel/api_cases_V3.xlsx"
+EXCEL_FILE_PATH4="./data/excel/api_cases_V4.xlsx"
+EXCEL_FILE_PATH5="./data/excel/api_cases_V5.xlsx"
+EXCEL_FILE_PATH6="./data/excel/api_cases_V6.xlsx"
 # excel 文件的sheet页
 SHEET_NAME="Sheet1"
 
@@ -26,7 +31,7 @@ USER_TYPE="username"
 # 错误信息展示的配置
 ERROR_MSG="接口参数格式有误"
 MSG_DATA_ERROR="响应数据提取失败"
-REQUEST_ERROR="请求失败"
+REQUEST_ERROR="请求失败，数据解析错误"
 
 
 ASSERT_PASS="断言成功"

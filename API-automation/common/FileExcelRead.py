@@ -4,8 +4,8 @@ import openpyxl
 from config import *
 class FileExcelRead():
     @staticmethod
-    # 读取excel文件
-    def read_excel(excel_file_path=EXCEL_FILE_PATH,sheet_name=SHEET_NAME):
+    #  TODO 读取excel文件,需要知道文件路径，sheet页名
+    def read_excel(excel_file_path=EXCEL_FILE_PATH4,sheet_name=SHEET_NAME):
         """
         :param excel_file_path:   excel文件的路径，EXCEL_FILE_PATH是维护在config.py的常量
         :param sheet_name:  excel要操作的sheet页名，SHEET_NAME是维护在config.py的常量
@@ -56,8 +56,11 @@ class FileExcelRead():
         print("从excel读取的数据为：",data)
         return data
 
+
+
     @staticmethod
-    def write_excel(excel_file_path=EXCEL_FILE_PATH,sheet_name=SHEET_NAME,column=None,row=None,value=None):
+    #  TODO 写入excel文件，需要知道excel文件路径，sheet名、第几列，第几行、写入的值
+    def write_excel(excel_file_path=EXCEL_FILE_PATH4,sheet_name=SHEET_NAME,column=None,row=None,value=None):
         # 打开已经存在的excel文件或者创建新的excel文件
         try:
             workbook=openpyxl.load_workbook(excel_file_path)
@@ -70,7 +73,7 @@ class FileExcelRead():
         else:
             worksheet=workbook.create_sheet(sheet_name)
 
-        # 写入数据到指定的行或者列
+        # 写入数据到指定的行或者列.将获取到的value值写入到指定的行列中
         worksheet.cell(column=column,row=row).value=value
 
         # 写入完成后保存文件
