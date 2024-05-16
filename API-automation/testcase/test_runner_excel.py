@@ -156,7 +156,7 @@ class TestCase:
             # ------------------------------数据库提取数据------------------------
         self.__sql_extraction(CaseData)
 
-        # json path断言
+        # -------------------------------json path断言--------------------------------------
         try:
             # 实际结果,提取数据：
             actual_value=self.ak.get_data_from_response(res.json(),CaseData["actualResult"])
@@ -177,6 +177,17 @@ class TestCase:
         finally:
             assert actual_value == CaseData["expectResult"], value
 
+        # -------------------------------数据库断言----------------------
+        try:
+            res=self.__sql_assertion(CaseData)
+        except Exception:
+            print("sql断言出现问题，断言失败")
+            value="SQL断言失败"
+        else:
+            assert res
+        finally:
+            # 不管断言是否成功，都将结果写入excel文件
+            FileExcelRead.write_excel(row=row,column=column,value=value)
 
 
 
