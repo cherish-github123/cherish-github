@@ -94,9 +94,11 @@ class TestCase:
     def __sql_assertion(self,CaseData):
         # 数据库断言
         res=True   # 如果有用例不需要断言，则默认为True
+        # 判断excel文件中sqlAssertData和sqlExpectData的值不为空时，再进行断言
         if CaseData["sqlAssertData"] and CaseData["sqlExpectResult"]:
-                # 判断excel文件中sqlAssertData和sqlExpectData的值不为空时，再进行断言
+                # 实际结果
                 realityData=eval(CaseData["sqlAssertData"])
+                # 预期结果,将字符串格式的json数据转换为字典格式
                 expectData=json.loads(CaseData["sqlExpectResult"])
                 # 定义一个空字典，用来存放实际结果
                 reality_value={}
@@ -150,7 +152,7 @@ class TestCase:
             # 将结果写入excel文件
             FileExcelRead.write_excel(row=row,column=column,value=value)
         else:
-            # 得到对应的响应结果，反射
+            # 发送请求，得到对应的响应结果，反射
             res = getattr(self.ak,CaseData["method"])(**dict_data)
 
             # ------------------------------数据库提取数据------------------------
