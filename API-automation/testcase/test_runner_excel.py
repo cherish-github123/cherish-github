@@ -6,6 +6,7 @@ from jinja2 import Template   # 变量渲染
 
 from common.FileYamlRead import FileYamlRead
 from common.FileExcelRead import FileExcelRead
+from common.Data_Encrypt_AES import Data_Encrypt
 from api_keyword.api_keyword import ApiKeys
 from config import *
 
@@ -134,15 +135,30 @@ class TestCase:
         actual_value=None
         value=None
 
+        #-------------------------------------------------TODO 发送请求-------------------------------------
         # 文件读取后，需要获取接口的四要素url、params、header、data,获取出来的都是字符串格式的，需要转换为字典格式
         # TODO eval()方法是将字符串格式的字典转为字典格式
         try:
+            url = CaseData["url"] + CaseData["path"]
+            # 如果CaseData["params"]和CaseData["headers"]是字符串，则需要eval()转为字典格式
+            params = eval(CaseData["params"]) if isinstance(CaseData["params"], str) else None
+            headers = eval(CaseData["headers"]) if isinstance(CaseData["headers"], str) else None
+
+            # -----------------------------------------TODO 数据加密处理-------------------------------------
+            if CaseData["data"] is None:
+                # 如果文件中data为空，则不需要加密
+                data=None
+            else:
+                # 如果excel文件中data不为空，且解密配置不为空，就需要进行加密处理
+                data=FileExcelRead.data_EncryptDataAES(eval(CaseData["data"]))
+
+
             # 接口请求四要素,dict_data是请求参数字典，将接口四要素进行封装
-            dict_data={"url":CaseData["url"]+CaseData["path"],
-                       "params":eval(CaseData["params"]),
-                       "headers":eval(CaseData["headers"]),
-                       "data":eval(CaseData["data"])}
-            # 发送请求
+            dict_data = {"url": url,
+                        "params": params,
+                        "headers": headers,
+                        "data": data}
+
             if CaseData["type"] == "json":
                 # 判断接口参数的格式为json，是json格式，需要使用json.dumps()方法将参数data转换为json格式,参数放在json中
                 dict_data["data"] = json.dumps(dict_data["data"])
@@ -181,15 +197,37 @@ class TestCase:
 
         # -------------------------------数据库断言----------------------
         try:
-            res=self.__sql_assertion(CaseData)
+            res_database=self.__sql_assertion(CaseData)
         except Exception:
             print("sql断言出现问题，断言失败")
             value="SQL断言失败"
         else:
-            assert res
+            assert res_database
         finally:
             # 不管断言是否成功，都将结果写入excel文件
             FileExcelRead.write_excel(row=row,column=column,value=value)
+
+
+
+        # --------------------------------------全量数据响应断言-----------------------------------
+        # 全量数据响应断言，如果用例中有全量数据响应断言，进行断言，并将结果写入Excel文件
+        # excel文件6中两个字段：responseExcept:响应结果的预期结果，responseExclude:在对比时需要排除的字段
+        # 先判断responseExcept期望结果是否为空，不为空时进行断言
+        if CaseData["responseExcept"]:
+            # 预期结果：
+            json1=eval(CaseData["responseExcept"])  # 因为Excel读取的是字符串格式，所以需要eval()转为字典格式
+            # 实际结果：
+            json2=res.json()
+            # 排除字段：
+            other=eval(CaseData["responseExclude"])
+            jsonMaxassert=self.ak.jsonDeepDiff(json1,json2,**other)
+            # 如果jsonMaxassert不为空，说明断言失败，将结果写Excel文件
+            # if jsonMaxassert:
+            #     value=ASSERT_FAIL   # 断言失败
+            # else:
+            #     value=ASSERT_PASS   # 断言成功
+            # FileExcelRead.write_excel(row=row,column=column,value=value)
+            assert jsonMaxassert,"全量数据响应断言失败"
 
 
 

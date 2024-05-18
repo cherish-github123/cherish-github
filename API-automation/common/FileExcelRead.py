@@ -1,4 +1,5 @@
 import openpyxl
+from common.Data_Encrypt_AES import ENCRYPTAES
 
 
 from config import *
@@ -79,6 +80,28 @@ class FileExcelRead():
         # 写入完成后保存文件
         workbook.save(excel_file_path)
 
+    @staticmethod
+    def data_EncryptDataAES(data):
+        """
+        需要加密的接口，对于有@符号和无@符号的数据进行加密处理
+        :param data: 文件中的data参数,{"@username":"tony","@password":"123456"}
+        :return:
+        """
+        newdata = {}
+        for key in data:
+            if key[0]=="@":
+                # 加密数据，ENCRYPTAES是在封装的加密方法Data_Encrypt_AES.py中已经创建好的实例化对象，可以直接调用方法进行加密
+                # 加密后需要把key前面的@符号去掉，所以使用key[1:]去掉@符号
+                newdata[key[1:]]=ENCRYPTAES.encrypt_data(data[key])
+            else:
+                # 如果key前面没有@符号，不加密直接赋值
+                newdata[key]=data[key]
+
+        return newdata
+
+
+
+
 
 
 
@@ -86,5 +109,15 @@ class FileExcelRead():
 
 
 if __name__ == '__main__':
-    FileExcelRead.read_excel()
+    # FileExcelRead.read_excel()
+
+    # 需要加密处理：
+    data={"@username":"tony","@password":"123456"}
+    res=FileExcelRead.data_EncryptDataAES(data)
+    print("加密后的数据：",res)
+
+    # 不需要加密处理的数据：
+    data={"username":"tony","password":"123456"}
+    res=FileExcelRead.data_EncryptDataAES(data)
+    print("不需要加密的数",res)
 

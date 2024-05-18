@@ -64,6 +64,13 @@ class Data_Encrypt():
 
 
 
+
+# 创建一个类的实例对象，传入key
+key="1234567812345678"
+ENCRYPTAES=Data_Encrypt(key)
+
+
+
 def login(username,password):
     url="http://127.0.0.1:8080/login_safe"
     # 需要将传入的账号和密码进行加密
