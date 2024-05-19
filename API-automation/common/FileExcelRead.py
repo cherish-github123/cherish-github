@@ -6,7 +6,7 @@ from config import *
 class FileExcelRead():
     @staticmethod
     #  TODO 读取excel文件,需要知道文件路径，sheet页名
-    def read_excel(excel_file_path=EXCEL_FILE_PATH4,sheet_name=SHEET_NAME):
+    def read_excel(excel_file_path=EXCEL_FILE_PATH6,sheet_name=SHEET_NAME):
         """
         :param excel_file_path:   excel文件的路径，EXCEL_FILE_PATH是维护在config.py的常量
         :param sheet_name:  excel要操作的sheet页名，SHEET_NAME是维护在config.py的常量
@@ -36,7 +36,7 @@ class FileExcelRead():
         # 结果： ['id', 'url', 'path', 'method', 'params', 'headers', 'data', 'type', 'actualResult', 'expectResult', 'result', 'caseName']
 
         # todo 遍历excel中的每一行数据，将excel的每一行数据当做value,存储为一个字典，并且放在data中
-        data=[]
+        data=[]   # data是需要执行的用例数据
 
         """
         1.worksheet.iter_rows() 用于按行迭代工作表中的数据
@@ -46,11 +46,11 @@ class FileExcelRead():
         4.dict(zip(headers,row)),将headers列表中的元素作为键，row列表中的对应元素作为值，创建一个键值对应的字典
         """
         for row in worksheet.iter_rows(min_row=3,values_only=True):
-
-            # 用例过滤机制：如果excel文件中有用例不需要执行，可以添加一个字段为is_true,为True执行，为False时不执行
-            # new_data=dict(zip(headers,row))
-            # if new_data["is_true"] is True:
-            data.append(dict(zip(headers,row)))
+            # 遍历每一行数据，将每一行数据当做字典存储
+            new_data=dict(zip(headers,row))
+            if new_data["is_true"] is True:
+                # 用例过滤机制：如果excel文件中有用例不需要执行，可以添加一个字段为is_true,为True执行，为False时不执行,需要执行时加入到data列表中
+                data.append(new_data)
 
         workbook.close()
         # data的数据格式是列表嵌套字典，每个字典对应一行数据，字典的key是列名，value是每一行对应的数据
@@ -61,7 +61,7 @@ class FileExcelRead():
 
     @staticmethod
     #  TODO 写入excel文件，需要知道excel文件路径，sheet名、第几列，第几行、写入的值
-    def write_excel(excel_file_path=EXCEL_FILE_PATH4,sheet_name=SHEET_NAME,column=None,row=None,value=None):
+    def write_excel(excel_file_path=EXCEL_FILE_PATH6,sheet_name=SHEET_NAME,column=None,row=None,value=None):
         # 打开已经存在的excel文件或者创建新的excel文件
         try:
             workbook=openpyxl.load_workbook(excel_file_path)
@@ -83,7 +83,7 @@ class FileExcelRead():
     @staticmethod
     def data_EncryptDataAES(data):
         """
-        需要加密的接口，对于有@符号和无@符号的数据进行加密处理
+        需要加密的接口，对于有@符号数据进行加密处理，没有@符号的数据不加密
         :param data: 文件中的data参数,{"@username":"tony","@password":"123456"}
         :return:
         """

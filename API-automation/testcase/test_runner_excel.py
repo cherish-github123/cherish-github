@@ -26,8 +26,8 @@ class TestCase:
         """
         #  TODO -----动态生成测试标题
         if CaseData["caseName"] is not None:
-            # 将获取到的ID和caseName拼接起来，为一个测试标题
-            caseName = f"CASEID:{CaseData['id']}---{CaseData['caseName']}"
+            # 将获取到的ID和caseName拼接起来，为一个测试标题,可以使用ID进行用例排序
+            caseName = f"CASEID:{(CaseData['id'])}----{CaseData['caseName']}"
             allure.dynamic.title(caseName)
 
         if CaseData["storyName"] is not None:
@@ -111,8 +111,7 @@ class TestCase:
                     res=False
         return res
 
-
-
+    @pytest.mark.flaky(reruns=3, reruns_delay=3)   # 用例失败重跑，重跑3次，每次间隔3秒
     @pytest.mark.parametrize("CaseData",AllCaseData)
     def testcase(self, CaseData): # Casedata是字典格式的，是excel文件的每一行数据
         # 调用动态生成测试标题函数
@@ -124,7 +123,7 @@ class TestCase:
         eval()方法，当用例渲染完成后，再将字符串格式的用例数据转为字典格式
         使用场景：例如有一个URL里面需要使用token的值，token是从响应结果中获取的，那么可以在URL中使用{{token}},然后使用变量渲染的方法将token的值给到token变量中
         """
-        CaseData=eval(Template(str(CaseData))).render(self.all_value)
+        CaseData=eval(Template(str(CaseData)).render(self.all_value))
 
         # 写入excel文件的行和列
         row=CaseData["id"]
@@ -149,7 +148,7 @@ class TestCase:
                 # 如果文件中data为空，则不需要加密
                 data=None
             else:
-                # 如果excel文件中data不为空，且解密配置不为空，就需要进行加密处理
+                # 如果excel文件中data不为空，且加密配置不为空，就需要进行加密处理
                 data=FileExcelRead.data_EncryptDataAES(eval(CaseData["data"]))
 
 
@@ -213,9 +212,9 @@ class TestCase:
         # 全量数据响应断言，如果用例中有全量数据响应断言，进行断言，并将结果写入Excel文件
         # excel文件6中两个字段：responseExcept:响应结果的预期结果，responseExclude:在对比时需要排除的字段
         # 先判断responseExcept期望结果是否为空，不为空时进行断言
-        if CaseData["responseExcept"]:
+        if CaseData["responseExpect"]:
             # 预期结果：
-            json1=eval(CaseData["responseExcept"])  # 因为Excel读取的是字符串格式，所以需要eval()转为字典格式
+            json1=eval(CaseData["responseExpect"])  # 因为Excel读取的是字符串格式，所以需要eval()转为字典格式
             # 实际结果：
             json2=res.json()
             # 排除字段：
