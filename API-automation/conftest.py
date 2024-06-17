@@ -16,6 +16,7 @@ def login_fixture():
     return api_key,token
 
 
+# 钩子函数，在测试用例之前执行，打印用例ID,测试结果，故障表示，异常，用例执行耗时等信息，需要结合pytest.ini文件使用
 @pytest.hookimpl(hookwrapper=True, tryfirst=True)
 def pytest_runtest_makereport(item, call):
     # 通过 out = yield 定义了一个生成器。在生成器中，res = out.get_result() 获取了测试结果对象。
