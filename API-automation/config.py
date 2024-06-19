@@ -3,12 +3,12 @@
 YAML_FILE_PATH="../data/yaml/api_yaml_V5.yaml"
 
 # excel文件路径
-EXCEL_FILE_PATH1="./data/excel/api_cases_V1.xlsx"
-EXCEL_FILE_PATH2="./data/excel/api_cases_V2.xlsx"
-EXCEL_FILE_PATH3="./data/excel/api_cases_V3.xlsx"
-EXCEL_FILE_PATH4="./data/excel/api_cases_V4.xlsx"
-EXCEL_FILE_PATH5="./data/excel/api_cases_V5.xlsx"
-EXCEL_FILE_PATH6="./data/excel/api_cases_V6.xlsx"
+EXCEL_FILE_PATH1="../data/excel/api_cases_V1.xlsx"
+EXCEL_FILE_PATH2="../data/excel/api_cases_V2.xlsx"
+EXCEL_FILE_PATH3="../data/excel/api_cases_V3.xlsx"
+EXCEL_FILE_PATH4="../data/excel/api_cases_V4.xlsx"
+EXCEL_FILE_PATH5="../data/excel/api_cases_V5.xlsx"
+EXCEL_FILE_PATH6="../data/excel/api_cases_V6.xlsx"
 # excel 文件的sheet页
 SHEET_NAME="Sheet1"
 
