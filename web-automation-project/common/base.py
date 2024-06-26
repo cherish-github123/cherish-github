@@ -3,6 +3,7 @@
 """
 
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -42,7 +43,7 @@ class Base:
     def input_content(self,content):
         # 输入内容的方法，可以直接调用上面定位的方法，返回element后输入内容
 
-        self.locator_with_webdriverwait().send_keys(content)
+        self.locator_with_webdriverwait(By.ID,"kw").send_keys(content)
 
 
 
@@ -56,3 +57,17 @@ class Base:
 
 
 
+
+
+
+
+
+
+
+
+
+if __name__ == '__main__':
+    base=Base()
+    base.open_url("https://www.baidu.com")
+    input_element=base.locator_with_webdriverwait(By.ID,"kw")
+    base.input_content("python")
