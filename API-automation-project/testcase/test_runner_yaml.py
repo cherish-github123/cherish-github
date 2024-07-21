@@ -179,6 +179,7 @@ class TestCase:
 
         # -------------------------------数据库断言----------------------
         try:
+
             res = self.__sql_assertion(CaseData)
         except Exception:
             print("sql断言出现问题，断言失败")
