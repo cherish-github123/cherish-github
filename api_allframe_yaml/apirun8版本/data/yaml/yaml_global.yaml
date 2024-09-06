@@ -1,0 +1,7 @@
+# 用来定义全局变量，
+url="http://shop-xo.hctestedu.com"   # 生产环境
+#url:"http://127.0.0.1:xxxx"       # 测试环境
+
+
+
+

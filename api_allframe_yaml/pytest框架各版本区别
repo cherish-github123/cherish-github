@@ -1,0 +1,105 @@
+1.requests是python的第三方库，用来发送http请求
+2.jsonpath是用来解析json数据的库
+3.allure是用来生成测试报告的库
+
+
+注：下一个版只写明与上一版本的不同之处以及新增功能，没说明的与上一版本一致
+
+------------>apirun1版本：
+最基础的线性代码（没有使用关键字封装）
+1.单个用例添加步骤@allure.step("步骤：xxxx")，在用例内部添加测试步骤with allure.step("步骤一：xxxx")，
+2.用例添加了用例标题@allure.title("xxxxxx")
+3.接口请求使用requests库，使用requests.post(参数)发送请求
+4.接口关联使用上一个接口数据,使用jsonpath提取，下一个接口直接引用变量名称使用
+5.框架添加用例统一执行入口:run_main文件，调用pytest.main()方法执行用例,运行该文件时，pytest会自动搜索当前目录下的所有符合条件的用例文件并执行
+
+
+
+------------>apirun2版本：
+1. 框架添加关键字封装功能，
+将发送请求的方法封装成一个类Keyword,分别封装常用的get方法和post方法(request_post)，参数使用**kwargs方式传入，表示可以传入多个参数
+   接口请求使用封装好的Keyword类，接口使用创建的对象keyword调用封装的方法发送请求，keyword.request_post(参数)方法发送请求（与apirun1第3点对比）
+2.给用例执行时添加日志，pytest.int文件设置日志的开关、日志级别、日志输出格式、日志存放位置及文件名；conftest.py文件添加钩子函数（pytest固定写法）,
+打印用例ID,测试结果，故障表示，异常，用例执行耗时等信息，两者需要结合使用
+3.本版本待解决问题：每一个需要依赖登录接口的用例都需要将登录接口重新写一遍，代码冗余
+
+
+
+
+------------>apirun3版本：
+1.在conftest.py文件中新增定义一个关于登录功能的夹具函数login_fixture,在需要登录接口(比如加入购物车)为前置条件的用例中，不需要再写一次登录的接口，
+直接在用例中引用login_fixture，将夹具当做函数参数传入，即可使用登录后的token值（更新apirun2版本的第3点)---（test_02_addcart3.py的第16行、18行代码）
+
+
+
+----------->apirun4版本：
+1.在一个项目的业务流程中，会用到很多提取之后的变量（例如提交订单需要先登录【token】----->获取购物车商品列表【cart_id】----->获取地址【address_id】---->最后再提交订单），
+提交订单时需要用到token、cart_id、address_id这些变量，如果每个提取的数据都需要写一个单独的夹具，代码冗余，所以需要一个全局变量来管理这些变量
+定义一个方法在global_var.py文件中用来管理全局变量，进行全局变量增加/修改/显示;
+2.在【1】的基础上，需要封装一个关键字函数，将响应数据提取出来并且放到全局变量中（keyword.py---->ex_jsonData方法）,
+主要思想是在发送请求后，先将响应数据保存在全局变量字典中，赋给变量current_response；
+然后使用ex_jsonData方法将current_response的数据获取出来，
+之后传入响应数据response+jsonpath表达式+下标来获取我们需要的数据，将提取出来的数据赋值一个变量A，并且保存在全局变量中，需要用A变量直接调用即可
+例如，我们在登录接口返回数据包含一个token值，先把token值保存在全局变量current_response中,再获取current_response的数据,
+然后使用ex_jsonData方法将token的值提取出来并赋值给变量token_result(test_02_login4的第27行代码),再需要使用这个变量时直接获取token_result并赋值引用即可
+同理，在其他接口中也可以这样获取需要的数据，并且保存在全局变量中
+上述2，就可以不用定义很多夹具,直接引用全局变量即可
+
+
+
+
+------------>apirun5版本：
+1.新增变量渲染功能，如果一个接口需要同时使用全局变量中的多个变量，那么就需要引用多次，如：
+    token_value=GlobalVar().get_dict("token_result")
+    msg_value=GlobalVar().get_dict("msg_result")
+    cart_id_value=GlobalVar().get_dict("cart_id_result")
+    address_id_value=GlobalVar().get_dict("address_id_result")
+需要一个变量调用一次get_dict()方法，代码冗余，所以新增一个变量渲染功能，将每个变量都渲染成全局变量字典中对应的值，
+eval(var_render(request_data,GlobalVar().show_dict()))
+直接在用例中使用{{全局变量的变量名}}引用即可，例：
+在登录接口我们保存的token的变量名是token_result,可以直接在加入购物车接口使用{{token_result}}引用这个值（test_02_addcart5的第18行代码）
+
+
+
+------------->apirun6版本：
+1.新增数据驱动功能ddt,将所有的用例信息（比如用例标题、接口地址、请求参数、预期结果、jsonpath提取表达式等）维护在yaml文件中，使用ddt读取yaml文件中的用例信息，并执行用例
+在utils中增加一个yamlfileread方法，用于读取yaml文件，返回用例信息列表
+2.因为已经将用例信息都维护在yaml文件中，所以每个接口不需要再单独写，直接读取yaml文件就可以实现所有用例一次执行
+3.在keyword.py中新增一个request_post_form_urlencoded方法，用于发送form_urlencoded格式的请求，yaml文件中的变量是我们自己写的不能直接发送请求，需要将yaml文件中的参数转换为post请求需要的参数再发送请求
+4.本版本待解决问题：上面【3】是针对同一个环境的操作，url是固定的，需要考虑生产环境和测试环境不同的问题，所以需要引入yaml的全局变量形式 ，进行变量渲染
+
+
+
+以上6个版本的代码都没问题，执行不会报错
+后面的版本目前只写了思路，代码后续补充
+
+------------->apirun7版本：
+1.第一步：添加一个用来定义全局变量参数的yaml文件（yaml_global.yaml）,等同于是定义了一个常量文件config.py,将环境变量统一管理，写两个url
+  第二步：需要将这个yaml_global.yaml的数据写入到全局变量字典中，在yamlfileread.py中定义一个方法（yaml_write_to_global_var),
+  调用global_var.py中的update_by_dict方法，将yaml_global.yaml的变量写入到全局变量中
+  第三步：进行变量渲染,在test_runner中，将测试步骤的内容进行变量渲染，渲染成全局变量中yaml的数据,渲染后，用例里面的用{{url}}包裹的变量会被替换为全局变量中的url的值
+2.本版本待解决问题：apirun7是针对一条用例的情况，当多条用例时，每条用例的接口、路径地址、参数都不一样，需要添加功能
+
+
+
+------------->apirun8版本：
+1.要解决上面【2】的问题，需要对yaml测试用例文件进行命名规范，在核心执行器中，把符合条件的测试用例加载出来执行,在yamlfileread.py中定义一个方法(load_yaml_case)，
+用来加载满足条件的测试用例,在核心执行器调用
+2.由于用例可能是excel或yaml，所以需要一个统一的方法，将excel或yaml读取出来的数据做统一处理，Utils添加一个cases_datafileread.py文件，传入用例类型（excel/yaml）,
+传入用例存放的文件夹,根据传入的文件类型读取出用例
+3.为框架增加断言功能，在keyword.py中定义一个断言方法assert_method(目前执行报错)
+4.为框架增加数据库数据提取，在keyword.py中定义方法：ex_databaseData(目前执行报错),可能数据库返回的数据有多个，可以与jmeter一样，使用变量+下标的方式存储到全局变量
+5.增加针对单个yaml文件实现数据驱动功能
+6.后面需要增加的功能有：数据加密功能、大数据量断言功能(deepdiff)
+7.根据维护好的测试用例增加动态生成测试标题、模块、备注信息、用例级别等信息的方法，传入读取出来的用例信息，，在用例执行前，调用这个方法，生成测试报告的标题、模块等信息，
+在utils中定义一个方法，dynamic_title，然后在核心执行器调用这个方法，30行修改为31行
+8.增加用例失败重跑的机制，先要安装pytest-rerunfailures插件，在run_main.py参数中添加重新运行次数--reruns=2,以及一次失败后重跑的间隔时间，--reruns-delay=3
+
+
+
+
+
+
+
+
+

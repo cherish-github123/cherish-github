@@ -1,0 +1,26 @@
+desc: test001-登录测试用例
+steps:
+- 发送Post请求:
+    关键字: request_post_form_urlencoded
+    url地址: "http://shop-xo.hctestedu.com"
+    路径:
+      s: /api/user/login
+      application: app
+    参数:
+      accounts: "17812345678"
+      pwd: "tyl151006"
+      type: username
+- 通过JSONPATH提取数据-MSG:
+     关键字: ex_jsonData
+     expression: $..msg
+     index: 0
+     var_name: msg_success
+- 通过JSONPATH提取数据-TOKEN:
+     关键字: ex_jsonData
+     expression: $..token
+     index: 0
+     var_name: msg_token
+
+
+
+
